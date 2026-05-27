@@ -1,0 +1,29 @@
+\documentclass[10pt, letterpaper]{article}
+\usepackage{multicol}
+\usepackage{geometry}
+\usepackage{amsmath}
+
+\usepackage[backend=biber,style=authoryear,autocite=footnote,pagetracker=page]{biblatex}
+\addbibresource{references.bib}
+
+\geometry{margin=2cm}
+
+\title{Predicting Standing Waves on a Square Plate}
+\author{Michael Xu}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\abstract
+\noindent\rule{\linewidth}{0.4pt}
+This investigation aims to use a computer program to predict the Chladni setup for a square metal plate. The plate is vibrated from the middle using function generator. Standing wave patterns on the plate are observed for multiple frequencies. A Python program is written and aims to simulate this setup and predict the patterns. Multiple algorithms are tried and non of them can produce patterns which look identical to the experiment. However, some algorithms predicted certain frequencies really well. Further improvements of the algorithm with better hardwares can be done to obtain more accurate results in the future.
+\noindent\rule{\linewidth}{0.4pt}
+
+\begin{multicols}{2}
+    \input{sections/introduction}
+    \input{sections/theory}
+    \input{sections/methodology}
+\end{multicols}
+
+\end{document}

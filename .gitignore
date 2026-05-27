@@ -1,0 +1,138 @@
+# =========================================================
+# Physics Investigation Repository
+# macOS + LaTeX + Python/Code + Docs
+# =========================================================
+
+# -------------------------
+# macOS system files
+# -------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+
+# -------------------------
+# Editor / IDE files
+# -------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# -------------------------
+# Python
+# -------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Build / test caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# -------------------------
+# LaTeX build artifacts
+# -------------------------
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lot
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.xdv
+*.nav
+*.snm
+*.vrb
+
+# latexmk
+latexmkrc
+
+# Temporary TeX files
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.idx
+*.ilg
+*.ind
+*.ist
+
+# -------------------------
+# Generated figures / plots
+# Uncomment if figures are generated automatically
+# -------------------------
+# figures/generated/
+# images/generated/
+
+# -------------------------
+# PDF outputs
+# Keep source PDFs in repo, ignore compiled PDFs only
+# -------------------------
+# Example:
+# main.pdf
+
+# If ALL PDFs are generated:
+# *.pdf
+
+# -------------------------
+# Word temporary files
+# -------------------------
+~$*.docx
+~$*.doc
+
+# -------------------------
+# Logs / temporary output
+# -------------------------
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# -------------------------
+# Data files (optional)
+# Uncomment if needed
+# -------------------------
+# *.csv
+# *.dat
+# *.h5
+
+# -------------------------
+# Environment variables / secrets
+# -------------------------
+.env
+.env.*
+
+# -------------------------
+# Node (only if using JS tooling)
+# -------------------------
+node_modules/
+
+# -------------------------
+# OS-generated archives
+# -------------------------
+*.zip
+*.tar
+*.gz
