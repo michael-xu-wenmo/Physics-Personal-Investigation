@@ -49,7 +49,9 @@ env/
 # -------------------------
 *.aux
 *.bbl
+*.bbl-SAVE-ERROR
 *.bcf
+*.bcf-SAVE-ERROR
 *.blg
 *.fdb_latexmk
 *.fls

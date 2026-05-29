@@ -81,6 +81,45 @@
       \verb https://www.semanticscholar.org/paper/Modeling-a-Square-Vibrating-Plate-Shao/e5dbf068ca45b54ec7134794dc0ef73fa9893741
       \endverb
     \endentry
+    \entry{Matplotlib}{online}{}{}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labeldatesource}{nodate}
+      \field{labeltitlesource}{title}
+      \field{title}{Matplotlib Documentation}
+      \verb{urlraw}
+      \verb https://matplotlib.org/stable/
+      \endverb
+      \verb{url}
+      \verb https://matplotlib.org/stable/
+      \endverb
+    \endentry
+    \entry{Numpy}{online}{}{}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{labeldatesource}{nodate}
+      \field{labeltitlesource}{title}
+      \field{title}{Numpy Documentation}
+      \verb{urlraw}
+      \verb https://numpy.org/devdocs/index.html
+      \endverb
+      \verb{url}
+      \verb https://numpy.org/devdocs/index.html
+      \endverb
+    \endentry
+    \entry{Scipy}{online}{}{}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labeldatesource}{nodate}
+      \field{labeltitlesource}{title}
+      \field{title}{Scipy Documentation}
+      \verb{urlraw}
+      \verb https://scipy.org/
+      \endverb
+      \verb{url}
+      \verb https://scipy.org/
+      \endverb
+    \endentry
   \enddatalist
 \endrefsection
 \endinput

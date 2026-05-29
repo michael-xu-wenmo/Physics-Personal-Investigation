@@ -46,7 +46,7 @@ class Display:
     def plot_wavefunction(self, figsize=(8, 6)):
         for i in range(len(self.wavefunctions)):
             fig, ax = plt.subplots(figsize=figsize)
-            w = self.wavefunctions[i] + self.wavefunctions[i].T
+            w = self.wavefunctions[i]
             ax.set_aspect("equal", adjustable="box")
             ax.pcolor(w)
             ax.contour(w, levels=0, colors="black")

@@ -1,67 +1,105 @@
-# pip install scikit-fem
-from skfem import MeshTri, Basis, BilinearForm
 import numpy as np
-from scipy.sparse.linalg import eigsh
-from skfem.element import ElementTriArgyris
-from display import Display
 import matplotlib.pyplot as plt
+from matplotlib import cm
+
+# Parameters
+n = 100  # Number of intervals on each axis
+alpha = 5
+m = 1
+mm = 2
+T = 100
+w = np.pi * np.sqrt(1**2 + 2**2)
+
+h = 2 / n
+dt = h / 2
+
+x = np.linspace(-1, 1, n + 1)
+y = np.linspace(-1, 1, n + 1)
 
 
-def eigenwaves2D_fem(
-    n_elements: int = 30, k: int = 10, nu: float = 0.3, grid_n: int = 200
-):
-    mesh = MeshTri.init_tensor(
-        np.linspace(0, 1, n_elements + 1), np.linspace(0, 1, n_elements + 1)
+# Force function
+def force(eps, w, t):
+    return eps * np.cos(w * t)
+
+
+# Initial conditions
+Uo = np.zeros((n + 1, n + 1))
+Uoo = np.zeros((n + 1, n + 1))
+U = np.zeros((n + 1, n + 1))
+
+# Index of center point (1-based (n+2)/2 → 0-based n//2)
+kk = n // 2  # equivalent to (n+2)/2 - 1 in 0-based indexing
+
+# Set up figures
+fig1 = plt.figure(1, figsize=(8, 6))
+ax1 = fig1.add_subplot(111, projection="3d")
+
+fig2 = plt.figure(2, figsize=(6, 6))
+ax2 = fig2.add_subplot(111)
+
+X, Y = np.meshgrid(x, y, indexing="ij")
+
+total_steps = int(T / dt)
+
+for t_step in range(1, total_steps + 1):
+    # --- Vectorised finite-difference update ---
+    # Build padded arrays that implement the Neumann-like boundary reflections
+    # used in the original MATLAB (i==1 → i_1=2, i==n+1 → i1=n, etc.)
+
+    # Interior + boundary indices with reflection
+    im = np.arange(n + 1)  # row indices 0..n
+    ip = np.arange(n + 1)
+    jm = np.arange(n + 1)
+    jp = np.arange(n + 1)
+
+    im_idx = np.where(im == 0, 1, im - 1)  # reflect left boundary
+    ip_idx = np.where(im == n, n - 1, im + 1)  # reflect right boundary
+    jm_idx = np.where(jm == 0, 1, jm - 1)
+    jp_idx = np.where(jp == n, n - 1, jp + 1)
+
+    laplacian = (
+        Uo[im_idx, :] + Uo[ip_idx, :] + Uo[:, jm_idx] + Uo[:, jp_idx] - 4 * Uo
+    ) / h**2
+
+    U = (dt**2) * laplacian - Uoo + 2 * Uo
+
+    # --- Centre point with forcing ---
+    lap_kk = (
+        Uo[kk - 1, kk]
+        + Uo[kk + 1, kk]
+        + Uo[kk, kk - 1]
+        + Uo[kk, kk + 1]
+        - 4 * Uo[kk, kk]
+    ) / h**2
+
+    U[kk, kk] = (
+        (lap_kk + force(alpha, w, dt * (t_step - 1))) * dt**2
+        - Uoo[kk, kk]
+        + 2 * Uo[kk, kk]
     )
 
-    e = ElementTriArgyris()
-    basis = Basis(mesh, e)
+    # --- Time-step bookkeeping ---
+    Uoo = Uo.copy()
+    Uo = U.copy()
 
-    @BilinearForm
-    def biharmonic(u, v, _):
-        return (
-            u.hess[0, 0] * v.hess[0, 0]
-            + nu * (u.hess[0, 0] * v.hess[1, 1] + u.hess[1, 1] * v.hess[0, 0])
-            + 2 * (1 - nu) * u.hess[0, 1] * v.hess[0, 1]
-            + u.hess[1, 1] * v.hess[1, 1]
-        )
+    # --- Plot every 10 steps ---
+    if t_step % 10 == 0:
+        # Surface plot
+        ax1.cla()
+        ax1.plot_surface(X, Y, U, cmap=cm.viridis, linewidth=0, antialiased=False)
+        ax1.set_title(f"Wave at t = {t_step * dt:.2f}")
+        ax1.set_xlabel("x")
+        ax1.set_ylabel("y")
+        ax1.set_zlabel("U")
 
-    @BilinearForm
-    def inertia(u, v, _):
-        return u * v
+        # Zero-contour plot
+        ax2.cla()
+        ax2.contour(x, y, U, levels=[0], colors="blue")
+        ax2.set_title(f"Zero contour at t = {t_step * dt:.2f}")
+        ax2.set_xlabel("x")
+        ax2.set_ylabel("y")
+        ax2.set_aspect("equal")
 
-    K = biharmonic.assemble(basis)
-    M = inertia.assemble(basis)
+        plt.pause(0.05)
 
-    eigenvalues, eigenvectors = eigsh(K, k=k + 6, M=M, which="LM", sigma=1e-6)
-
-    mask = eigenvalues > 1e-6
-    eigenvalues = eigenvalues[mask][:k]
-    eigenvectors = eigenvectors[:, mask][:, :k]
-
-    # Interpolate each eigenvector onto a regular grid for plotting
-    grid_x = np.linspace(0, 1, grid_n)
-    grid_y = np.linspace(0, 1, grid_n)
-    xx, yy = np.meshgrid(grid_x, grid_y)
-    points = np.array([xx.ravel(), yy.ravel()])
-    P = basis.probes(points)  # maps DOF values -> grid point values
-
-    waves = [
-        (P @ eigenvectors[:, i]).reshape(grid_n, grid_n)
-        for i in range(eigenvalues.shape[0])
-    ]
-
-    return np.sqrt(np.abs(eigenvalues)), waves
-
-
-if __name__ == "__main__":
-    N = 100
-    k = 40
-    v, f = eigenwaves2D_fem(N, k)
-    d = Display(v, f, "Chladni")
-    d.export(d.plot_energy(), "freq.png")
-    i = 0
-    for fig in d.plot_wavefunction():
-        d.export(fig, f"pattern{i}.png")
-        plt.close()
-        i += 1
+plt.show()

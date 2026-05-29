@@ -1,0 +1,31 @@
+import numpy as np
+from scipy import sparse
+
+from typing import Literal  # For typing
+
+
+def eigenwaves2D(
+    N: int,
+    k=10,
+    bound: Literal["Dirichlet", "Neumann"] = "Dirichlet",
+    biharmonic: bool = True,
+):
+    # Define A
+    x = np.linspace(0, 1, N + 1)
+    dx = np.diff(x)[0]
+
+    diag = np.ones(N + 1)
+    diags = np.array([-diag, 2 * diag, -diag])
+    if bound == "Neumann":
+        diags[1][0] = 1
+        diags[1][-1] = 1
+    D = sparse.spdiags(
+        diags, np.array([-1, 0, 1]), N + 1, N + 1
+    )  # one dimensional matrix
+    T = sparse.kronsum(D, D)  # two dimensional matrix
+    if biharmonic:
+        T = T @ T
+    eigenvalues, eigenvectors = sparse.linalg.eigsh(T, k=k, which="SM")
+    waves = [eigenvector.reshape((N + 1, N + 1)) for eigenvector in eigenvectors.T]
+
+    return np.round(np.sqrt(eigenvalues), decimals=5) / dx, waves
