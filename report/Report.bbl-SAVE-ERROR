@@ -120,6 +120,46 @@
       \verb https://scipy.org/
       \endverb
     \endentry
+    \entry{strang2006wave}{online}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=93733dfde0c47db226efad798ab3b662}{%
+           family={Strang},
+           familyi={S\bibinitperiod},
+           given={Gilbert},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{organization}{1}{%
+        {Massachusetts Institute of Technology}%
+      }
+      \strng{namehash}{93733dfde0c47db226efad798ab3b662}
+      \strng{fullhash}{93733dfde0c47db226efad798ab3b662}
+      \strng{fullhashraw}{93733dfde0c47db226efad798ab3b662}
+      \strng{bibnamehash}{93733dfde0c47db226efad798ab3b662}
+      \strng{authorbibnamehash}{93733dfde0c47db226efad798ab3b662}
+      \strng{authornamehash}{93733dfde0c47db226efad798ab3b662}
+      \strng{authorfullhash}{93733dfde0c47db226efad798ab3b662}
+      \strng{authorfullhashraw}{93733dfde0c47db226efad798ab3b662}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{MIT 18.086 Mathematical Methods for Engineers II lecture notes}
+      \field{title}{The Wave Equation and Staggered Leapfrog}
+      \field{urlday}{29}
+      \field{urlmonth}{5}
+      \field{urlyear}{2026}
+      \field{year}{2006}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://math.mit.edu/classes/18.086/2006/am53.pdf
+      \endverb
+      \verb{url}
+      \verb https://math.mit.edu/classes/18.086/2006/am53.pdf
+      \endverb
+    \endentry
   \enddatalist
 \endrefsection
 \endinput

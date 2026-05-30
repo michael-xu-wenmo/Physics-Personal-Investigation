@@ -2,3 +2,50 @@
 
 The previous algorithm simulates free oscillations on a 2D membrane. It is relatively straightforward to calculate and is the easiest to implement. However, this is not what happens exactly for the experiment. There is a constant source of forced vibration in the middle of the plate, driving the standing waves. Therefore, instead of the simple free oscillation equation, a periodic forced term should also be added to the equations as shown:
 
+\begin{equation}
+   \frac{\partial^2u}{\partial t^2} = c^2 \nabla^2u + F(x,y,t)
+\end{equation}
+
+Where $F(x,y,t)$ is the forced term (to simulate the constant oscillation of the wave generator) and takes the form:
+
+\begin{equation}
+    F(x,y,t) =
+    \begin{cases}
+        \alpha cos(\omega t) \text{ if } x = y= 0\\
+        0 \text{ otherwise}
+    \end{cases}
+\end{equation}
+
+$\omega$ represents the angular frequency of the vibration generator. $\alpha$ is the amplitude of the oscillation. This is essentially a Dirac Delta function in both $x$ and $y$ directions that is multiplied by the time evolution term:
+
+\begin{equation}
+    F(x,y,t) = \alpha cos(t)\delta(x)\delta(y)
+\end{equation}
+
+In this case, the plate centre is (0, 0) and $x$ and $y$ ranges from -1 to 1. The two Dirac Delta functions models the central point on the plate where the plate receives the constant driving force of oscillation. The contact point is modeled as an infinitesimally small, fixed point, as if the vibration generator is connected to the plate via a small bolt. If the frequency of the forced term matches one of the modes calculated from the previous algorithm, the amplitude of the oscillation should diverge to infinity and the pattern should stablise as time evolves.
+
+\subsection{Numerically Solving the Forced Equation}
+The numerical solution of the forced equation is very similar to the free wave equation. The domain is still divided into an uniform $(N+1)\times(N+1)$ space with spacing $\Delta x = \Delta y = \Delta h = \frac{2}{N}$. Notice that the mesh grid ranges from -1 to 1 hence the respective discrete coordinates are written as $x_i = -1 + i\Delta h$ and $y_j = -1 + j\Delta h$, where $i$ and $j$ ranges from 0 to $N$. Another difference is that because of the time dependent nature of forcing term, time must also be included and discretised, with $\Delta t = \frac{1}{N}$ and $t_n = \Delta tn$ where $n$ ranges from 0 to $N$. With the spacial and time coordinates discretised, the displacement function $u$ can now be written as $u^{n}_{i,j}$. 
+
+The 2D laplacian in the forced wave equation is still expressed as the standard five-point finite difference stencil as before:
+
+\begin{equation}
+    \nabla^2u^{n}_{i,j} = \frac{u^{n}_{i,j+1}+u^{n}_{i+1,j}-4u^{n}_{i,j}+u^{n}_{i-1,j}+u^{n}_{i,j-1}}{\Delta h^2}
+\end{equation}
+
+The new included second derivative with respect to time is also approximated using the central difference method:
+
+\begin{equation}
+    \frac{\partial^2u^{n}_{i,j}}{\partial t^2} = \frac{u^{n+1}_{i,j} - 2u^{n}_{i,j} + u^{n-1}_{i,j}}{\Delta t^2}
+\end{equation}
+
+Using the approximations of the derivatives, the forced wave equation can be substituted and rearranged to look like this:
+
+\begin{equation}
+    u^{n+1}_{i,j} = 2u^{n}_{i,j} - u^{n-1}_{i,j} + \Delta t^2(c^2\nabla^2u^{n}_{i,j} + F(x_i,y_j,t_n))
+\end{equation}
+
+With the initial condition $u^0_{i,j}$ and $u^1_{i,j}$ predetermined, 0 $\forall i, \forall j$, the formula can be implement both iteratively and recursively in code to calculate the next $u$ in space and time. This scheme is known as the leapfrog method \autocite{strang2006wave} and is both time reversible and energy-conserving in an undamped system. It requires no linear systems, but rather simple arithmetic between the previous two terms which makes this both easy to implement and fast to calculate.
+
+\subsubsection{Boundary Conditions}
+At the edges of the system, when the $i$ and $j$ indices go out of bounds, one can let $u_{-1,j}$ and $u_{N+1,j}$ be 0 for Dirichlet boundary condition. For Neumann conditions, the out-of-bound terms will be reflected as derived previously: $u_{-1,j} = u_{1,j}$  and $u_{N+1,j} = u_{N-1,j}$. The same rules applies also to $j$.

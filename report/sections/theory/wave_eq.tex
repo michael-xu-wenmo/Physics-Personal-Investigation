@@ -1,6 +1,6 @@
 \section{Theory}
 
-\subsection{Analytical Solutions of the 2D Wave Equation}
+\subsection{The 2D Wave Equation}
 
 The first algorithm treats the metal plate as a thin membrane. It has negligible thickness and no elasticity. The waves on the plate is modeled as if they are vibrating freely, with no damping. Therefore, the waves on the plate simply satisfies the 2D wave equation \autocite{PDE}. This is the simplest model that can be constructed to simulate the Chladni plates.
 
@@ -32,7 +32,7 @@ $U_0$ is the initial displacement (i.e amplitude) of the wave. $m$ and $s$ are t
 
 Another important feature of this solution is that each mode is orthogonal to each other. This is key thing to remember when dealing with the discretised version of the laplacian, especially when considering the boundary conditions.
 
-\subsection{Numerical Solution of the Wave Equation}
+\subsection{Numerically Solving the Wave Equation}
 Analytical solutions may be convenient for certain situations, however, not any shape has an analytical solution. Sometimes, numerical methods are required. The finite differences method (FDM) can be used to solve this PDE numerically. Dividing the region by N, $dx$ can be turned into $\Delta x$, with $N\Delta x = 1$. This means that the function $u(x)$ is also discretised into $u_i$ where i is an integer ranges from 0 to N. Only one dimension is considered in this situation as it simplifies things a lot. The method to raise this to 2D will be shown later.
 
 \subsubsection{Dirichlet Boundary Condition}
@@ -182,7 +182,7 @@ The expanded form of the 2D laplacian is shown:
 By imagining a L by L space and dividing the space into a N by N mesh, each discrete point on the mesh can be represented by this notation $u_{i,j}$ where $i$ and $j$ both ranges from 0 to N. As the space is divided into a square mesh, a quantity $\Delta h$ can be defined so that $\Delta h = \Delta x = \Delta y$. Therefore, using the equations derived previously, the 2 dimensional second derivative can be expressed as following:
 
 \begin{equation}
-    \frac{u_{i,j+1}+u_{i+1,j}-2u_{i,j}+u_{i-1,j}+u_{i,j-1}}{\Delta h^2} = -\omega^2 u_{i,j}
+    \frac{u_{i,j+1}+u_{i+1,j}-4u_{i,j}+u_{i-1,j}+u_{i,j-1}}{\Delta h^2} = -\omega^2 u_{i,j}
 \end{equation}
 
 Flattening the 2 dimensional array of $u_{i,j}$ into 1 column of vector $\mathbf{u}$, the matrix equation of the Dirichlet boundary condition is this:
@@ -294,7 +294,7 @@ B_2 =
 \end{pmatrix}
 \end{equation}
 
-These matrices might look horrible at first glance but are actually surprisingly easy to construct. Defining the original 1 dimensional matrix as $D$. Matrix $M$ is simply the kronecker sum of of 2 $D$s, with the respective boundary conditions.
+These matrices might look horrible at first glance but are actually surprisingly easy to construct. Defining the original 1 dimensional matrix as $D$. Matrix $M$ is simply the kronecker sum \autocite{vanloan2000kronecker} of of 2 $D$s, with the respective boundary conditions.
 
 \begin{equation}
     M = D \oplus D
@@ -306,4 +306,4 @@ The symbol $\oplus$ denotes the kronecker sum and can be expressed as this
     D \oplus D = D \otimes I + I \otimes D
 \end{equation}
 
-where the symbol $\otimes$ is the kronecker product of a matrix. This exact detail and proof of this will not be shown in here. See the Appendix for more details on kronecker products and kronecker sums.
+where the symbol $\otimes$ is the kronecker product of a matrix. The exact detail and proof of this will not be shown in here.

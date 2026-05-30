@@ -8,7 +8,7 @@ def eigenwaves2D(
     N: int,
     k=10,
     bound: Literal["Dirichlet", "Neumann"] = "Dirichlet",
-    biharmonic: bool = True,
+    biharmonic: bool = False,
 ):
     # Define A
     x = np.linspace(0, 1, N + 1)
@@ -28,4 +28,4 @@ def eigenwaves2D(
     eigenvalues, eigenvectors = sparse.linalg.eigsh(T, k=k, which="SM")
     waves = [eigenvector.reshape((N + 1, N + 1)) for eigenvector in eigenvectors.T]
 
-    return np.round(np.sqrt(eigenvalues), decimals=5) / dx, waves
+    return np.round(np.sqrt(eigenvalues) / dx, decimals=5), waves

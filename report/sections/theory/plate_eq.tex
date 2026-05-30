@@ -1,0 +1,102 @@
+\subsection{Kirchhoff-Love Plate Equation}
+The previous two algorithms both models the waves vibrating on a non elastic membrane. They are simple models but will produce patterns that are not as accurate. To properly govern dynamics of a metal plate, the Kirchhoff-Love plate equation should be used \autocite{kirchhoff1850scheibe}\autocite{love1888shell}. It is derived by balancing the external loads with the internal bending force that tends to restore the plate to its stress-free state. This paper considers a plate model that is generalized from the classical Kirchhoff-Love equation by including additional terms to account for more physical effects, such as linear restoration, tension and visco-elasticity \autocite{nguyen2021kirchhofflove}.
+
+The full equation for a plate with thickness $h$ is shown bellow. Some parts of the equation are grouped and combined into a single term for simplicity reasons.
+
+\begin{equation}
+    \rho h a(x,y,t) = -\hat{K}u(x,y,t) - \hat{B}v(x,y,t) + F(x,y,t)
+\end{equation}
+
+Here, $\hat{K}$ is the internal forces operator and $\hat{B}$ is the damping operator.
+
+\begin{equation}
+    \hat{K} = K_0 - T\nabla^2 + D\nabla^4
+\end{equation}
+
+\begin{equation}
+    \hat{B} = K_1 - T_1\nabla^2
+\end{equation}
+
+$u(x,y,t)$ still represents the vertical displacement of the wave. $a(x,y,t)$ and $v(x,y,t)$ is the syntactic sugar for $\frac{\partial^2u}{\partial t^2}$ and $\frac{\partial u}{\partial t}$ respectively.
+
+The other symbols in this equation not mentioned are constants describing the material properties of the plate.
+
+\begin{tabular}{|p{1.2cm}||p{3cm}p{1.6cm}|}
+    \hline
+    Symbol& Constant& Unit\\
+    \hline
+    \hline
+    $\rho$& Density& kg m$^{-3}$\\
+    \hline
+    $K_0$& Linear Stiffness Coefficient& kg m$^{-2}$ s$^{-2}$\\
+    \hline
+    $T$& Tension Coefficient& kg s$^{-2}$\\
+    \hline
+    $D$& Flexural Rigidity& Nm\\
+    \hline
+    $K_1$& Linear Damping Term& kg m$^{-2}$ s$^{-1}$\\
+    \hline
+    $T_1$& Visco-Elastic Damping Term& kg s$^{-1}$\\
+    \hline
+\end{tabular}
+
+Note that $D = \frac{Eh^3}{12(1-\nu)}$ where $h$ is the plate thickness, $E$ is the Young's modulus, and $\nu$ is the Poisson's ratio.
+
+The $\nabla^4$ term is called as the Biharmonic operator. It is equals to the square of the laplacian.
+
+The $F(x,y,t)$ term is still the forcing term created by the vibration generator. To pursue for a more accurate approximation, the forcing term will now be applied to a small range in $x$ and $y$ rather than the central point.
+
+\begin{equation}
+    F(\mathbf{x},t) = 
+    \begin{cases}
+        \alpha cos(\omega t), \mathbf{x} \in A\\
+        0, \mathbf{x} \notin A
+    \end{cases}
+\end{equation}
+
+$\mathbf{x}$ denotes the spacial vector representing $x$ and $y$. $A$ represents a square area where $A = [-0.001,0.001]\times[-0.001,0.001]$. This still mimics a bolt fixing the plate to a vibration generator in the middle but the bolt now has a length and a width instead of being a singular point.
+
+\subsection{Numerically Solving Kirchhoff-Love Plate Equation}
+
+The numerical algorithm used to solve this PDE is called the Newmark-Beta Scheme (NB2)\autocite{rao2011fem}\autocite{newmark1959method}. Note that the 2D space is discretised in the same fashion as in Section 2.4. The spacial indices $i$ and $j$ are combined into the general index $\mathbf{i}$ for simplicity in notation.
+
+The algorithm first defines the relationship between the acceleration, velocity, and displacement using the Taylor expansion. Given the acceleration of the next time step $a^{n+1}_{\mathbf{i}}$, the displacement and the velocity at the next time step can be solved using the quantities from the previous time step:
+
+\begin{equation}
+    u^{n+1}_{\mathbf{i}} = u^{n}_{\mathbf{i}} + \Delta tv^{n}_{\mathbf{i}} + \frac{\Delta t^2}{2}\frac{(a^{n+1}_{\mathbf{i}}+a^{n}_{\mathbf{i}})}{2}
+\label{eq:updateu}
+\end{equation}
+
+\begin{equation}
+    v^{n+1}_{\mathbf{i}} = v^{n}_{\mathbf{i}} + \Delta t \frac{(a^{n+1}_{\mathbf{i}}+a^{n}_{\mathbf{i}})}{2}
+\label{eq:updatev}
+\end{equation}
+
+Given that the two relationships is a linear combination of terms from two time steps, the equations can be separated into:
+
+\begin{equation}
+    u^{n+1}_{\mathbf{i}} = u^{p}_{\mathbf{i}}+ \frac{\Delta t^2}{4}a^{n+1}_{\mathbf{i}}
+\end{equation}
+
+\begin{equation}
+    v^{n+1}_{\mathbf{i}} = v^{p}_{\mathbf{i}}+\frac{\Delta t}{2} a^{n+1}_{\mathbf{i}}
+\end{equation}
+
+where $u^{p}_{\mathbf{i}} = u^{n}_{\mathbf{i}} + \Delta tv^{n}_{\mathbf{i}}+ \frac{\Delta t^2}{4}a^{n}_{\mathbf{i}}$ is the predicted value for $u$ and $v^{p}_{\mathbf{i}} = v^{n}_{\mathbf{i}}+ \frac{\Delta t}{2} a^{n}_{\mathbf{i}}$ is the predict value for $v$.
+
+The acceleration for the next time step is defined separately by the plate equation stated previously:
+
+\begin{equation}
+    \rho h a^{n+1}_{\mathbf{i}} = -\hat{K} u^{n+1}_{\mathbf{i}} - \hat{B}v^{n+1}_{\mathbf{i}} + F^{n+1}_{\mathbf{i}}
+\end{equation}
+
+Note that the operators are all discretised using similar methods explained previously. Substitute the quantities and rearranging yields this final time stepping equation to calculate for each $a^{n+1}_{\mathbf{i}}$ iteratively:
+
+\begin{equation}
+    (\rho h + \frac{\Delta t^2}{4} \hat{K} + \frac{\Delta t}{2} \hat{B}) a^{n+1}_{\mathbf{i}} = -\hat{K}u^{p}_{\mathbf{i}} - \hat{B}v^{p}_{\mathbf{i}}+F^{n+1}_{\mathbf{i}}
+\end{equation}
+
+After knowing $a^{n+1}_{\mathbf{i}}$, $u^{n+1}_{\mathbf{i}}$ and $v^{n+1}_{\mathbf{i}}$ can all be found by using the equation \eqref{eq:updateu} and equation \eqref{eq:updatev}. 
+
+\subsubsection{Boundary Condition}
+The boundary conditions for this case is a bit more complicated than the simple wave equation case. For the free edge, net zero bending force and zero shear force on the edge must be ensured \autocite{kirchhoff1850scheibe} \autocite{timoshenko1959plates}. Exact derivation won't be shown in the paper due to limiting spaces but this leads to the followings for the edge and corners of the plate: $u_{-1,j} = 2u_{0,j} - u_{1,j}$ and $u_{-1,-1} = u_{-1,1} + u_{1,-1} - u_{1,1}$ \autocite{nguyen2021kirchhofflove}. Only one edge and one corner is shown in here but the same applies to all four edges and corners.

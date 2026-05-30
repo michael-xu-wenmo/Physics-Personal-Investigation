@@ -1,7 +1,7 @@
 \section{Methodology}
 
 \subsection{Chladni Plates}
-The physical experiment is conducted by attaching a metal plate to a piston. This piston is controlled by a function generator, which regulates the frequency and amplitude of the vibration. Pouring sand onto the plate causes the sand to accumulate on the nodes when the frequency is tuned correctly. The frequencies tuned to are those that maximise the volume of the sound produced due to the vibration. The nodal patterns can be visualised in this way. The apparatus used is shown below.
+The physical experiment is conducted by attaching a metal plate to a wave generator. The wave generator controls the frequency and amplitude of the vibration. Pouring sand onto the plate causes the sand to accumulate on the nodes (zero displacement) when the frequency is tuned correctly. The frequencies tuned to are those that maximise the volume of the sound produced due to the vibration. The nodal patterns can be visualised in this way. The apparatus used is shown below.
 
 The procedure described above corresponds to the free edge (Neumann) boundary. For the Dirichlet boundary condition, the edges of the plate mus be clamped. Wooden frame is manufactured to the dimensions of the plate and secured to the working platform using a G-clamp. However, it is noticed that due to the clamping, the stress on the plate is increased. This makes the piston increasingly hard to cause any notable vibrations on the plate. Sand is too course and too heavy to visualise the patterns. To overcome this issue, the surface of the plate is cleaned carefully to make it smooth as possible. Sand is also replaced by finer, and less dense sugar. The setup is shown.
 
@@ -11,5 +11,7 @@ Plates of different shapes are also tested. A circular plate is tested for diffe
 For the analytical solutions of the square plate, the equations are plotted using Desmos.com. The corresponding modes for integer values of $m$ and $s$ are all compared with the patterns observed experimentally. 
 
 Numerical methods explained previously are implemented in Python (python 3.12). See Appendix, or the Github repository (https://github.com/michael-xu-wenmo/Physics-Personal-Investigation) for the full implementation. External Python libraries like Numpy \autocite{Numpy} and Scipy \autocite{Scipy} are used when implementing the algorithms to simplify the codebase. The library Matplotlib \autocite{Matplotlib} is also used to visualise the patterns generate and plot the frequency graphs.
+
+For algorithms that are also dependent on time (forced wave equation), a large time period ($T = 100$) will be chosen to let the waves propagate and stablise into a standing wave and the final pattern at $T = 100$ will be saved to use for comparison.
 
 It is important to aware that the experimental results are usually a superposition of different degenerate modes. When visualising the eigenvectors, degenerate eigenvectors will also be superposed together to look for more accurate predictions.
