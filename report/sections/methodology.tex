@@ -1,17 +1,87 @@
 \section{Methodology}
 
 \subsection{Chladni Plates}
-The physical experiment is conducted by attaching a metal plate to a wave generator. The wave generator controls the frequency and amplitude of the vibration. Pouring sand onto the plate causes the sand to accumulate on the nodes (zero displacement) when the frequency is tuned correctly. The frequencies tuned to are those that maximise the volume of the sound produced due to the vibration. The nodal patterns can be visualised in this way. The apparatus used is shown below.
+The physical experiment is conducted by attaching a metal plate to a wave generator. The plate is assumed to be purely composed by isotropic aluminium with a side length of 0.25 m and a thickness of 0.001 mm. The wave generator controls the frequency and amplitude of the vibration. Pouring sand onto the plate causes the sand to accumulate on the nodes (zero displacement) when the frequency is tuned to the resonant frequency. This tuning is done by listening for the exact point where the sound produced by the plate is at its local maximum volume. The nodal patterns can be visualised in this way. The apparatus used is shown in Figure \ref{fig:free_setup}.
 
-The procedure described above corresponds to the free edge (Neumann) boundary. For the Dirichlet boundary condition, the edges of the plate mus be clamped. Wooden frame is manufactured to the dimensions of the plate and secured to the working platform using a G-clamp. However, it is noticed that due to the clamping, the stress on the plate is increased. This makes the piston increasingly hard to cause any notable vibrations on the plate. Sand is too course and too heavy to visualise the patterns. To overcome this issue, the surface of the plate is cleaned carefully to make it smooth as possible. Sand is also replaced by finer, and less dense sugar. The setup is shown.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=6.5cm]{freq280.jpeg}
+    \caption{\textit{\small The apparatus used to make the Chladni patterns on a square aluminium plate. On the left, there is a function generator tuned to create a sinusoidal oscillation at 280 Hz. The generator is wired to a vibration device. The right side of the picture shows an aluminium plate fixed to the vibration device at its centre. Sand is distributed on the surface of the plate and accumulates on the nodes to form these fascinating patterns.}}
+    \label{fig:free_setup}
+\end{figure}
+
+The procedure described above corresponds to the free edge (Neumann) boundary. For the Dirichlet boundary condition, the edges of the plate must be clamped. Wooden frame is manufactured to the dimensions of the plate and secured to the working platform using a G-clamp. However, it is noticed that due to the clamping, the stress on the plate is increased. This makes the piston increasingly hard to cause any notable vibrations on the plate. Sand is too course and too heavy to visualise the patterns. To overcome this issue, the surface of the plate is cleaned carefully to make it smooth as possible. Sand is also replaced by finer, and less dense sugar. The setup is shown in Figure 2.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=6.5cm]{fixed_setup.jpeg}
+    \caption{\textit{\small This picture shows the fixed edge setup. The plate is clamped to a frame beneath it and sugar is used instead of sand.}}
+    \label{fig:fix_setup}
+\end{figure}
 
 Plates of different shapes are also tested. A circular plate is tested for different patterns and a smaller square plate is tested to look for the change in frequency.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=3.2cm]{freq728.jpeg}
+    \includegraphics[width=3.2cm]{pattern790.jpeg}
+    \caption{\textit{\small Two patterns formed on different plates. The first picture shows the patterns formed on a square plate with side length of 15 cm at a frequency of 728 Hz. The second picture shows the patterns formed on a circular plate with diameter of 15 cm at a frequency of 790 Hz.}}
+\end{figure}
 
 \subsection{Models}
 For the analytical solutions of the square plate, the equations are plotted using Desmos.com. The corresponding modes for integer values of $m$ and $s$ are all compared with the patterns observed experimentally. 
 
-Numerical methods explained previously are implemented in Python (python 3.12). See Appendix, or the Github repository (https://github.com/michael-xu-wenmo/Physics-Personal-Investigation) for the full implementation. External Python libraries like Numpy \autocite{Numpy} and Scipy \autocite{Scipy} are used when implementing the algorithms to simplify the codebase. The library Matplotlib \autocite{Matplotlib} is also used to visualise the patterns generate and plot the frequency graphs.
+Numerical methods explained previously are implemented in Python (python 3.12). See Appendix, or the Github repository (https://github.com/michael-xu-wenmo/Physics-Personal-Investigation) for the full implementation. External Python libraries like Numpy \autocite{Numpy} and Scipy \autocite{Scipy} are used when implementing the algorithms to simplify the codebase. The library Matplotlib \autocite{Matplotlib} is also used to visualise the patterns generated and plot the frequency graphs.
 
-For algorithms that are also dependent on time (forced wave equation), a large time period ($T = 100$) will be chosen to let the waves propagate and stablise into a standing wave and the final pattern at $T = 100$ will be saved to use for comparison.
+For algorithms that are also dependent on time (forced wave equation, Plate equation), a large time period ($T = 100$) will be chosen to let the waves propagate and stablise into a standing wave and the final pattern at $T = 100$ will be saved to use for comparison. A large force coefficient $\alpha = 10^10$ will also be chosen to all the patterns to stablise quickly.
 
 It is important to aware that the experimental results are usually a superposition of different degenerate modes. When visualising the eigenvectors, degenerate eigenvectors will also be superposed together to look for more accurate predictions.
+
+\subsubsection{Plate Equation}
+The implementation of the plate equation contains more details. As the equation actually considers the material properties of the plate, correct values of the constants must be used in the algorithm to produce reasonably appropriate approximations. The square plate used in the experiment is made of aluminium with a side length $L$ of 0.25 m and thickness $h$ of 0.001 m % Exact dimension needed to be double checked again.
+
+Here are the exact values of the constants used in the plate equation for the aluminium plate:
+
+\begin{table}[H]
+    \centering
+\begin{tabular}{|p{1.2cm}||p{3cm}p{1.6cm}|}
+    \hline
+    Symbol& Constant& Value\\
+    \hline
+    \hline
+    $\rho$& Density& 2700\\
+    \hline
+    $E$& Young's Modulus& 6.9$\times 10^{10}$\\
+    \hline
+    $\nu$& Poisson's Ratio& 0.33\\
+    \hline
+    $D$& Flexural Rigidity& 6.4527\\
+    \hline
+    $K_0$& Linear Stiffness Coefficient& 0\\
+    \hline
+    $T$& Tension Coefficient& 0\\
+    \hline
+    $K_1$& Linear Damping Term& 0\\
+    \hline
+    $T_1$& Visco-Elastic Damping Term& 0\\
+    \hline
+\end{tabular}
+
+\caption{\textit{\small This is a table containing the values used for the constants in the plate equation. The first four rows contains the quantities that describes purely the material properties of isotropic aluminium. The values of density, Young's modulus, and Poisson's ratio are taken from the book: Materials Science and Engineering: An Introduction. 10th ed by \textcite{callister2018materials}. The bottom four quantities describes the plate property. As the model assumes that the plate is unclamped and has no additional support or damping other than driving by the vibration generator, all of the values are set to be 0 in this case.}}
+\end{table}
+
+Another detail to consider for this model is the angular frequency of the driving oscillation in the forced terms $\omega$. This value must be chosen with consideration when computing the waves as it must be the resonant frequency of the plate used. Wrong frequencies used will cause the nodes to change with time and never stablise into one standing wave.
+
+To predict for the resonant frequencies of the plate that the algorithm is modeling, a method that is similar to the one described in Section 2.2 is used. The method considers the eigenvalue problem for the operator $\hat{K}$\autocite{nguyen2021kirchhofflove}.
+
+\begin{equation}
+    \hat{K}\phi_{\mathbf{i}} = \lambda \phi_{\mathbf{i}}
+\end{equation}
+
+$\lambda$ in this equation is the eigenvalue and $\phi_{\mathbf{i}}$ is the eigenfunction at the given mode. By discretising the operator into a sparse matrix, similar to the procedures described in Section 2.2, the \textit{eigsh} method can be called from the Scipy sparse library to solve for the eigenvalues and eigenvectors. The natural frequencies corresponding to each eigenvector $\lambda_n$ is computed using the relationship
+\begin{equation}
+   f_n = \frac{1}{2\pi}\sqrt{\frac{\lambda_n}{\rho h}} 
+\end{equation}
+and $\omega_n = 2\pi f_n$.
+
+The calculated angular frequencies will then be used in the forcing term of the plate equation to simulate the correct standing wave patterns.

@@ -49,6 +49,85 @@
       \field{title}{Partial Differential Equations}
       \field{year}{2010}
     \endentry
+    \entry{callister2018materials}{book}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=a86023b364957b9310545163e72ee695}{%
+           family={Jr.},
+           familyi={J\bibinitperiod},
+           given={William\bibnamedelimb D.\bibnamedelimi Callister},
+           giveni={W\bibinitperiod\bibinitdelim D\bibinitperiod\bibinitdelim C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f2f399342efa41befbf57e862686fb39}{%
+           family={Rethwisch},
+           familyi={R\bibinitperiod},
+           given={David\bibnamedelima G.},
+           giveni={D\bibinitperiod\bibinitdelim G\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Wiley}%
+      }
+      \strng{namehash}{557a2ec62070bff8df03a8d3e301d9ab}
+      \strng{fullhash}{557a2ec62070bff8df03a8d3e301d9ab}
+      \strng{fullhashraw}{557a2ec62070bff8df03a8d3e301d9ab}
+      \strng{bibnamehash}{557a2ec62070bff8df03a8d3e301d9ab}
+      \strng{authorbibnamehash}{557a2ec62070bff8df03a8d3e301d9ab}
+      \strng{authornamehash}{557a2ec62070bff8df03a8d3e301d9ab}
+      \strng{authorfullhash}{557a2ec62070bff8df03a8d3e301d9ab}
+      \strng{authorfullhashraw}{557a2ec62070bff8df03a8d3e301d9ab}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{10}
+      \field{isbn}{9781119405498}
+      \field{title}{Materials Science and Engineering: An Introduction}
+      \field{year}{2018}
+    \endentry
+    \entry{kirchhoff1850scheibe}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=11d1101292d2c414be103ff433d0f03c}{%
+           family={Kirchhoff},
+           familyi={K\bibinitperiod},
+           given={Gustav},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{language}{1}{%
+        {german}%
+      }
+      \strng{namehash}{11d1101292d2c414be103ff433d0f03c}
+      \strng{fullhash}{11d1101292d2c414be103ff433d0f03c}
+      \strng{fullhashraw}{11d1101292d2c414be103ff433d0f03c}
+      \strng{bibnamehash}{11d1101292d2c414be103ff433d0f03c}
+      \strng{authorbibnamehash}{11d1101292d2c414be103ff433d0f03c}
+      \strng{authornamehash}{11d1101292d2c414be103ff433d0f03c}
+      \strng{authorfullhash}{11d1101292d2c414be103ff433d0f03c}
+      \strng{authorfullhashraw}{11d1101292d2c414be103ff433d0f03c}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal für die reine und angewandte Mathematik}
+      \field{title}{Über das Gleichgewicht und die Bewegung einer elastischen Scheibe}
+      \field{volume}{40}
+      \field{year}{1850}
+      \field{pages}{51\bibrangedash 88}
+      \range{pages}{38}
+      \verb{doi}
+      \verb 10.1515/crll.1850.40.51
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1515/crll.1850.40.51
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1515/crll.1850.40.51
+      \endverb
+    \endentry
     \entry{square_plate}{article}{}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=5a868577b3044a390da93c42fbb845a2}{%
@@ -81,6 +160,79 @@
       \verb https://www.semanticscholar.org/paper/Modeling-a-Square-Vibrating-Plate-Shao/e5dbf068ca45b54ec7134794dc0ef73fa9893741
       \endverb
     \endentry
+    \entry{vanloan2000kronecker}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=995bdd2b0481ec3adaa65f41e5c1c178}{%
+           family={Loan},
+           familyi={L\bibinitperiod},
+           given={Charles\bibnamedelimb F.\bibnamedelimi Van},
+           giveni={C\bibinitperiod\bibinitdelim F\bibinitperiod\bibinitdelim V\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{995bdd2b0481ec3adaa65f41e5c1c178}
+      \strng{fullhash}{995bdd2b0481ec3adaa65f41e5c1c178}
+      \strng{fullhashraw}{995bdd2b0481ec3adaa65f41e5c1c178}
+      \strng{bibnamehash}{995bdd2b0481ec3adaa65f41e5c1c178}
+      \strng{authorbibnamehash}{995bdd2b0481ec3adaa65f41e5c1c178}
+      \strng{authornamehash}{995bdd2b0481ec3adaa65f41e5c1c178}
+      \strng{authorfullhash}{995bdd2b0481ec3adaa65f41e5c1c178}
+      \strng{authorfullhashraw}{995bdd2b0481ec3adaa65f41e5c1c178}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Computational and Applied Mathematics}
+      \field{number}{1--2}
+      \field{title}{The Ubiquitous Kronecker Product}
+      \field{volume}{123}
+      \field{year}{2000}
+      \field{pages}{85\bibrangedash 100}
+      \range{pages}{16}
+      \verb{doi}
+      \verb 10.1016/S0377-0427(00)00393-9
+      \endverb
+    \endentry
+    \entry{love1888shell}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=ba7f9a4d32a53b2a0cf9523c9556f529}{%
+           family={Love},
+           familyi={L\bibinitperiod},
+           given={Augustus\bibnamedelimb Edward\bibnamedelima Hough},
+           giveni={A\bibinitperiod\bibinitdelim E\bibinitperiod\bibinitdelim H\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{ba7f9a4d32a53b2a0cf9523c9556f529}
+      \strng{fullhash}{ba7f9a4d32a53b2a0cf9523c9556f529}
+      \strng{fullhashraw}{ba7f9a4d32a53b2a0cf9523c9556f529}
+      \strng{bibnamehash}{ba7f9a4d32a53b2a0cf9523c9556f529}
+      \strng{authorbibnamehash}{ba7f9a4d32a53b2a0cf9523c9556f529}
+      \strng{authornamehash}{ba7f9a4d32a53b2a0cf9523c9556f529}
+      \strng{authorfullhash}{ba7f9a4d32a53b2a0cf9523c9556f529}
+      \strng{authorfullhashraw}{ba7f9a4d32a53b2a0cf9523c9556f529}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Philosophical Transactions of the Royal Society of London A}
+      \field{title}{The Small Free Vibrations and Deformation of a Thin Elastic Shell}
+      \field{volume}{179}
+      \field{year}{1888}
+      \field{pages}{491\bibrangedash 546}
+      \range{pages}{56}
+      \verb{doi}
+      \verb 10.1098/rsta.1888.0016
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1098/rsta.1888.0016
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1098/rsta.1888.0016
+      \endverb
+    \endentry
     \entry{Matplotlib}{online}{}{}
       \field{sortinit}{M}
       \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
@@ -94,6 +246,93 @@
       \verb https://matplotlib.org/stable/
       \endverb
     \endentry
+    \entry{newmark1959method}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=e684cea7463067aba1447124b8024837}{%
+           family={Newmark},
+           familyi={N\bibinitperiod},
+           given={Nathan\bibnamedelima M.},
+           giveni={N\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {American Society of Civil Engineers (ASCE)}%
+      }
+      \strng{namehash}{e684cea7463067aba1447124b8024837}
+      \strng{fullhash}{e684cea7463067aba1447124b8024837}
+      \strng{fullhashraw}{e684cea7463067aba1447124b8024837}
+      \strng{bibnamehash}{e684cea7463067aba1447124b8024837}
+      \strng{authorbibnamehash}{e684cea7463067aba1447124b8024837}
+      \strng{authornamehash}{e684cea7463067aba1447124b8024837}
+      \strng{authorfullhash}{e684cea7463067aba1447124b8024837}
+      \strng{authorfullhashraw}{e684cea7463067aba1447124b8024837}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of the Engineering Mechanics Division}
+      \field{number}{EM3}
+      \field{title}{A Method of Computation for Structural Dynamics}
+      \field{volume}{85}
+      \field{year}{1959}
+      \field{pages}{67\bibrangedash 94}
+      \range{pages}{28}
+      \verb{doi}
+      \verb 10.1061/JMCEA3.0000098
+      \endverb
+    \endentry
+    \entry{nguyen2021kirchhofflove}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=502319dbbb8ba92b4f15833a53ffa110}{%
+           family={Nguyen},
+           familyi={N\bibinitperiod},
+           given={Duong\bibnamedelimb T.\bibnamedelimi A.},
+           giveni={D\bibinitperiod\bibinitdelim T\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=32c9fe9ad234b366a8e1d674bd9dac4f}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Longfei},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=20fe2aa76e4e5da5d0dae0226a1cb54a}{%
+           family={Ji},
+           familyi={J\bibinitperiod},
+           given={Hangjie},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{a6d72188779e8a016aed3eb98735c0aa}
+      \strng{fullhash}{a6d72188779e8a016aed3eb98735c0aa}
+      \strng{fullhashraw}{a6d72188779e8a016aed3eb98735c0aa}
+      \strng{bibnamehash}{a6d72188779e8a016aed3eb98735c0aa}
+      \strng{authorbibnamehash}{a6d72188779e8a016aed3eb98735c0aa}
+      \strng{authornamehash}{a6d72188779e8a016aed3eb98735c0aa}
+      \strng{authorfullhash}{a6d72188779e8a016aed3eb98735c0aa}
+      \strng{authorfullhashraw}{a6d72188779e8a016aed3eb98735c0aa}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Engineering Mathematics}
+      \field{number}{6}
+      \field{title}{Stable and Accurate Numerical Methods for Generalized Kirchhoff--Love Plates}
+      \field{volume}{130}
+      \field{year}{2021}
+      \verb{doi}
+      \verb 10.1007/s10665-021-10163-x
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/s10665-021-10163-x
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/s10665-021-10163-x
+      \endverb
+    \endentry
     \entry{Numpy}{online}{}{}
       \field{sortinit}{N}
       \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
@@ -105,6 +344,46 @@
       \endverb
       \verb{url}
       \verb https://numpy.org/devdocs/index.html
+      \endverb
+    \endentry
+    \entry{rao2011fem}{book}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=bc8e9a4de974090b1914093e719a785a}{%
+           family={Rao},
+           familyi={R\bibinitperiod},
+           given={Singiresu\bibnamedelima S.},
+           giveni={S\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{location}{1}{%
+        {Boston}%
+      }
+      \list{publisher}{1}{%
+        {Butterworth-Heinemann}%
+      }
+      \strng{namehash}{bc8e9a4de974090b1914093e719a785a}
+      \strng{fullhash}{bc8e9a4de974090b1914093e719a785a}
+      \strng{fullhashraw}{bc8e9a4de974090b1914093e719a785a}
+      \strng{bibnamehash}{bc8e9a4de974090b1914093e719a785a}
+      \strng{authorbibnamehash}{bc8e9a4de974090b1914093e719a785a}
+      \strng{authornamehash}{bc8e9a4de974090b1914093e719a785a}
+      \strng{authorfullhash}{bc8e9a4de974090b1914093e719a785a}
+      \strng{authorfullhashraw}{bc8e9a4de974090b1914093e719a785a}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{5}
+      \field{isbn}{9781856176613}
+      \field{title}{The Finite Element Method in Engineering}
+      \field{year}{2011}
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/book/9781856176613/the-finite-element-method-in-engineering
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/book/9781856176613/the-finite-element-method-in-engineering
       \endverb
     \endentry
     \entry{Scipy}{online}{}{}
@@ -159,6 +438,45 @@
       \verb{url}
       \verb https://math.mit.edu/classes/18.086/2006/am53.pdf
       \endverb
+    \endentry
+    \entry{timoshenko1959plates}{book}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=c60b47aede681929218f40327dffaf0a}{%
+           family={Timoshenko},
+           familyi={T\bibinitperiod},
+           given={Stephen\bibnamedelima P.},
+           giveni={S\bibinitperiod\bibinitdelim P\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=7fe424cc8fab076676a5673fdbf77862}{%
+           family={Woinowsky-Krieger},
+           familyi={W\bibinithyphendelim K\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{location}{1}{%
+        {New York}%
+      }
+      \list{publisher}{1}{%
+        {McGraw-Hill}%
+      }
+      \strng{namehash}{cd4d5f3044740457972234be24694b56}
+      \strng{fullhash}{cd4d5f3044740457972234be24694b56}
+      \strng{fullhashraw}{cd4d5f3044740457972234be24694b56}
+      \strng{bibnamehash}{cd4d5f3044740457972234be24694b56}
+      \strng{authorbibnamehash}{cd4d5f3044740457972234be24694b56}
+      \strng{authornamehash}{cd4d5f3044740457972234be24694b56}
+      \strng{authorfullhash}{cd4d5f3044740457972234be24694b56}
+      \strng{authorfullhashraw}{cd4d5f3044740457972234be24694b56}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{2}
+      \field{title}{Theory of Plates and Shells}
+      \field{year}{1959}
     \endentry
   \enddatalist
 \endrefsection

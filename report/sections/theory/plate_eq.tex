@@ -21,6 +21,8 @@ $u(x,y,t)$ still represents the vertical displacement of the wave. $a(x,y,t)$ an
 
 The other symbols in this equation not mentioned are constants describing the material properties of the plate.
 
+\begin{table}[H]
+    \centering
 \begin{tabular}{|p{1.2cm}||p{3cm}p{1.6cm}|}
     \hline
     Symbol& Constant& Unit\\
@@ -39,8 +41,10 @@ The other symbols in this equation not mentioned are constants describing the ma
     $T_1$& Visco-Elastic Damping Term& kg s$^{-1}$\\
     \hline
 \end{tabular}
+\caption{\textit{\small A table contain the constants used in the Plate equation with their corresponding units.}}
+\end{table}
 
-Note that $D = \frac{Eh^3}{12(1-\nu)}$ where $h$ is the plate thickness, $E$ is the Young's modulus, and $\nu$ is the Poisson's ratio.
+Note that $D = \frac{Eh^3}{12(1-\nu^2)}$ where $h$ is the plate thickness, $E$ is the Young's modulus in Pa, and $\nu$ is the Poisson's ratio that is dimensionless.
 
 The $\nabla^4$ term is called as the Biharmonic operator. It is equals to the square of the laplacian.
 
