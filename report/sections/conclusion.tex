@@ -2,3 +2,9 @@
 The Chladni setup for a square plate is conducted in a laboratory and different algorithms are conducted to simulate the patterns created.
 
 The first algorithm models the standing waves on the plate as if they exists on a 2D membrane and oscillates freely with no damping. This allows the waves to be governed by the 2D wave equation. Both analytical and numerical solutions are implemented to simulate the standing waves. This model creates some similar looking patterns to the actual ones at certain modes but lacks in details.
+
+The second algorithm improves upon the previous one by adding a forced term to the equation and solves it numerically using the leapfrog method. However, no significant improvements on patterns predicted due to the simplicity of the theory.
+
+The third algorithm produces better results by using the Kirchhoff-Love plate equation which includes the material parameters. The Newmark-Beta scheme is implemented to solve of the equation numerically and similar patterns are produced for specific frequencies. However, possibly due to errors in the code implementation, results produced from this method is not always consistent.
+
+Overall, this paper aims to predict patterns formed on a square Chladni setup using three different algorithms. Qualitative analysis on the results are done of different patterns and respectable predictions are found using different frequencies. Improvements can be done in the future by perfecting the theory to include more parameters and solving it with better code implementations using better hardwares.

@@ -1,15 +1,97 @@
 \section{Results}
-The patterns from the free edge Chladni setup for the square plate are shown bellow and labeled with their corresponding frequencies.
+Two of the patterns from the free edge Chladni setup for the square plate are shown bellow and labeled with their corresponding frequencies. See Appendix A for the full set of Chladni patterns obtained from the experiment. The experiment failed to obtain patterns for certain modes due to potential random environmental reason.
 
-The patterns for the clamped edge Chladni setup are not shown because the apparatus failed to visualise them. A hypothesis for why it failed is that when the edges are clamped, the tension in the plate is too high to make any significant vibrations. The wave generator used cannot create waves with enough amplitude to create any notable waves. Furthermore, the frequencies required to create the waves are also increased. At high frequencies, the wave generator cannot create vibrations with precise enough frequencies. This is why the Chladni Setup failed to visualise clamped edge situations in this investigation.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 3.7cm]{pattern280.jpeg}
+    \includegraphics[width = 3.7cm]{squareA/pattern730.jpeg}
+    \caption{\textit{\small Two patterns obtained from the square plate setup. The left one is produced with a frequency of 280 Hz and the right one is produced with a frequency of 1190 Hz. These two patterns corresponds to the mode $m=2,s=1$ and $m=1,s=4$ respectively. This is identified using the factor of $\sqrt{3^2+5^2} \text{/} \sqrt{1+2^2}$ between the two frequencies}}
+\end{figure}
+
+The patterns shown have a rotational symmetry of $90^\circ$. This is expected as the plate used is a square. There is also a general trend of having more "layors" of nodes when the frequency increases. This is phenomena is similar to the atomic orbital where orbitals at a higher energy level also possesses more nodes.
+
+The patterns for the clamped edge Chladni setup are not shown because the apparatus failed to produce consistent results. The patterns are found to be extremely difficult to produce with this setup and when repeats are done, the patterns and frequencies are completely different each time. A hypothesis for why it failed is that when the edges are clamped, the tension in the plate is too high to make any significant vibrations. The wave generator used cannot create waves with enough amplitude to create any notable waves. Furthermore, the frequencies required to create the waves are also increased. At high frequencies, the wave generator cannot create vibrations with precise enough frequencies. In addition, only two corners of the plate are clamped to the frame as shown in Figure 2. The two other unclamped corners may still move slightly. This uncontrollable movement may cause the position of the plate relative to the clamp and the frame to change ever slightly whenever the machine is turned on. This movement could be the reason for the inconsistency.
 
 \subsection{Wave Equations}
-The analytical and the numerical solutions of the wave equation is shown bellow.
+The analytical and the numerical solutions of the wave equation for is shown in Figure 5 and 6 respectively. The analytical solution is plotted with Desmos and the numerical solution is plotted using Matplotlib.
 
-The patterns of the analytical and numerical solutions matches each other perfectly at every modes. However, when compared to the actual Chladni waves, there are still some notable differences.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 3.7cm]{ms21.png}
+    \includegraphics[width = 3.7cm]{ms35.png}
+    \caption{\textit{\small Two patterns obtained by plotting the analytical solution on Desmos.com. The left one represents the mode with $m=2, s=1$. The right one corresponds to the mode with $m=3, s=5$.}}
+\end{figure}
 
-These differences comes from multiple factors and is due to the simplicity of this model. It haven't taken the material properties of the metal plate into account and models waves under free oscillation when they are actually driven by an external source.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 3.7cm]{pattern24.png}
+    \includegraphics[width = 3.7cm]{wave35.png}
+    \caption{\textit{\small Two patterns obtained by solving the eigenvalue problem of the free wave equation with Neumann boundary conditions. The left one represents the mode with $m=2, s=1$. The right one corresponds to the mode with $m=3, s=5$.}}
+\end{figure}
+
+The patterns of the analytical and numerical solutions matches each other perfectly as shown in Figure 5 and 6. This is expected as the numerical method discretised the space into a $100 \times 100$ mesh ($N=100$). At this precision, the two solutions should look identical to each other. 
+
+However, the patterns predicted look nothing like the experimental ones. These differences comes from multiple factors but are all due to the simplicity of this model. It hasn't taken the material properties of the metal plate into account and models waves under free oscillation when they are actually driven by an external source.
 
 The frequencies predicted by this model are all arbitrary and should not be compared to the actual frequencies in the experiment. This is because this model assumes that the waves exists on a non-elastic membrane with negligible thickness. The wave speed therefore is not taken into account. 
 
+A side note for the simulation is that the numerical solutions successfully predicted degenerate modes. For example, the patterns for $m=2,s=1$ have the same eigenvalue to $m=1,s=2$. The patterns shown above are actually also superpositions of itself and its transpose (By transpose, it means the transpose of the 2D array that is used to represent the vertical displacement of the wave at each point).
+
+\subsubsection{Similar Looking Patterns}
+An interesting observation to note is that the patterns predicted for the three lower modes, $m=0,s=1$, $m=1,s=0$ and $m=1,s=1$ are actually considerably similar to the experimental results obtained even though the modes are not matching.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=2.4cm]{pattern4.png}
+    \includegraphics[width=2.4cm]{pattern5.png}
+    \includegraphics[width=2.4cm]{pattern8.png}
+    \caption{\textit{\small Patterns predicted using the free wave model with modes $m=0,s=1$, $m=1,s=0$, and $m=1,s=1$ respectively. The first two images are the patterns predicted before they are superposed with their transpose.}}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=2.4cm]{pattern100.jpeg}
+    \includegraphics[width=2.4cm]{pattern125.jpeg}
+    \includegraphics[width=2.4cm]{pattern280.jpeg}
+    \caption{\textit{\small The patterns shown are created with frequencies of 100, 125, and 280 Hz respectively. The right most image represents the mode $m=2,s=1$ as discussed before, and the middle image represents the mode $m=1,s=0$ identified using the factor of $\sqrt{1+2^2}$ between the frequencies 125 and 280}}
+\end{figure}
+
+The set of patterns shown above are the ones that look similar. The first two predicted patterns shown in Figure 7 are actually degenerate. When they are superposed together with there transpose, they will both look like the pattern predicted analytically. Notice that they look unbelievably similar to the first two images shown in Figure 8. The second image in Figure 8 should represent the mode $m=1,s=0$ which matches the second image in Figure 7. The problem is the first image in Figure 8. The first pattern has a frequency of 100 Hz. It is not degenerate to the second image (frequency 125) which is already considered as the lowest possible mode. A hypothesis of this phenomena is that the 100 Hz pattern originally is degenerate. Possibly due to the vibration source not being exactly in the middle, or influenced by other environmental factors, the two degenerate modes split into two different patterns. Nevertheless, this split patterns is captured in the wave equation model with reasonable accuracy.
+
+For the third image of Figure 7, it represents the mode $m=s=1$. Notice its similarity with the third image of Figure 8, which should be the mode $m=2,s=1$. This similarity could purely be unrelated, but more investigations can be done in the future to check for the suitability of using a free wave equation to simulate the oscillations of a plate under low frequencies.
 \subsection{Forced Wave Equation}
+Two of the patterns predicted by solving the forced wave equation numerically are presented in Figure 9.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 3.7cm]{pattern7.png}
+    \includegraphics[width = 3.7cm]{forced35.png}
+    \caption{\textit{\small Two images showing the patterns obtained from solving the forced wave equation using the the leapfrog algorithm. The left image represents the mode $m=2, s=1$ and the right image shows the mode $m=3, s=5$.}}
+\end{figure}
+
+Although these are the patterns produced from the forced equation, there are little to no difference from the ones produced by solving the free wave previously for the first image. The frequencies of the forced term is tuned specifically to the natural frequency. The source of the forced oscillation is also a small point. These factors explains why minimal changes are observed. 
+
+
+Even with this forcing term, the essence of this method is still solving the wave equation. The experimental analogy of this method is like looking for the oscillations on the drum skins of a square drum. No actual material properties are taken into consideration. This explains why the patterns predicted don't look like the patterns observed.
+
+\subsection{Kirchhoff-Love Plate Equation}
+
+The plate equation has been difficult to implement and solve numerically. The frequencies predicted by the algorithm didn't produce fully stable results. This caused the patterns generated to be inconsistent at each run. Furthermore, most of the nodal patterns predicted propagates with time. This is a heavy criticism of the implementation in this paper as the nodes of standing waves should not evolve with time. However, some results produced are discovered to match the empirical pattern to a decent degree. Two of the predicted patterns are shown bellow:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 3.2cm]{plate580.png}
+    \includegraphics[width = 3.2cm]{plate750.png}
+    \caption{\textit{\small Two pictures shown above are the patterns predicted by solving the Kirchhoff-love Plate equation numerically}}
+\end{figure}
+
+The corresponding patterns obtained by experiment is shown bellow:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=3.2cm]{pattern1600.jpeg}
+    \includegraphics[width=3.2cm]{pattern2090.jpeg}
+    \caption{\textit{\small Patterns created by the experiment. The first pattern is created with a frequency of 1600 Hz and the second one has a frequency of 2090 Hz.}}
+\end{figure}
+
+Qualitative analysis can conclude that the predictions are in decent agreements with the experimental results. However, it is still important to point out that there are still a significant discrepancy between the predicted value and empirical value of frequencies. This is mainly due the environmental disruptions like air pressure, wind, background noise, and the weight of the sand that have not being considered in the equation. Improvements can definitely be done in the future to include the extra parameters. However, this would put more computational pressure on the computer. It would also require more theoretical knowledge which is beyond the scope of this paper.

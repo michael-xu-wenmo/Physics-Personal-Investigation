@@ -19,6 +19,8 @@ Here, $\hat{K}$ is the internal forces operator and $\hat{B}$ is the damping ope
 
 $u(x,y,t)$ still represents the vertical displacement of the wave. $a(x,y,t)$ and $v(x,y,t)$ is the syntactic sugar for $\frac{\partial^2u}{\partial t^2}$ and $\frac{\partial u}{\partial t}$ respectively.
 
+The $\nabla^4$ term is called as the biharmonic operator. It equals to the square of the laplacian.
+
 The other symbols in this equation not mentioned are constants describing the material properties of the plate.
 
 \begin{table}[H]
@@ -45,8 +47,6 @@ The other symbols in this equation not mentioned are constants describing the ma
 \end{table}
 
 Note that $D = \frac{Eh^3}{12(1-\nu^2)}$ where $h$ is the plate thickness, $E$ is the Young's modulus in Pa, and $\nu$ is the Poisson's ratio that is dimensionless.
-
-The $\nabla^4$ term is called as the Biharmonic operator. It is equals to the square of the laplacian.
 
 The $F(x,y,t)$ term is still the forcing term created by the vibration generator. To pursue for a more accurate approximation, the forcing term will now be applied to a small range in $x$ and $y$ rather than the central point.
 

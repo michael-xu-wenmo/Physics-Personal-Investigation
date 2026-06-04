@@ -16,7 +16,7 @@ Where $F(x,y,t)$ is the forced term (to simulate the constant oscillation of the
     \end{cases}
 \end{equation}
 
-$\omega$ represents the angular frequency of the vibration generator. $\alpha$ is the amplitude of the oscillation. This is essentially a Dirac Delta function in both $x$ and $y$ directions that is multiplied by the time evolution term:
+$\omega$ represents the angular frequency of the vibration generator. $\alpha$ is the magnitude of the force. This is essentially a Dirac Delta function in both $x$ and $y$ directions that is multiplied by the time evolution term ($\alpha cos(t)$):
 
 \begin{equation}
     F(x,y,t) = \alpha cos(t)\delta(x)\delta(y)
@@ -45,7 +45,7 @@ Using the approximations of the derivatives, the forced wave equation can be sub
     u^{n+1}_{i,j} = 2u^{n}_{i,j} - u^{n-1}_{i,j} + \Delta t^2(c^2\nabla^2u^{n}_{i,j} + F(x_i,y_j,t_n))
 \end{equation}
 
-With the initial condition $u^0_{i,j}$ and $u^1_{i,j}$ predetermined, 0 $\forall i, \forall j$, the formula can be implement both iteratively and recursively in code to calculate the next $u$ in space and time. This scheme is known as the leapfrog method \autocite{strang2006wave} and is both time reversible and energy-conserving in an undamped system. It requires no linear systems, but rather simple arithmetic between the previous two terms which makes this both easy to implement and fast to calculate.
+With the initial condition $u^0_{i,j}$ and $u^1_{i,j}$ predetermined to be 0 $\forall i, \forall j$, the formula can be implement both iteratively and recursively in code to calculate the next $u$ in space and time. This scheme is known as the leapfrog method \autocite{strang2006wave} and is both time reversible and energy-conserving in an undamped system. It requires no linear systems, but rather simple arithmetic between the previous two terms which makes this both easy to implement and fast to calculate.
 
 \subsubsection{Boundary Conditions}
-At the edges of the system, when the $i$ and $j$ indices go out of bounds, one can let $u_{-1,j}$ and $u_{N+1,j}$ be 0 for Dirichlet boundary condition. For Neumann conditions, the out-of-bound terms will be reflected as derived previously: $u_{-1,j} = u_{1,j}$  and $u_{N+1,j} = u_{N-1,j}$. The same rules applies also to $j$.
+At the edges of the system, when the $i$ and $j$ indices go out of bounds, one can let $u_{-1,j}$ and $u_{N+1,j}$ be 0 for Dirichlet boundary condition. For Neumann conditions, the out-of-bound terms will be reflected as derived previously: $u_{-1,j} = u_{1,j}$  and $u_{N+1,j} = u_{N-1,j}$. The same rules applies also to the $j$ direction.

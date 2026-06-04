@@ -1,0 +1,195 @@
+\section{Forced Plate Equation Python Implementation}
+
+\begin{lstlisting}{language=Python}
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.figure import Figure
+from scipy import sparse
+from scipy.sparse.linalg import splu
+from typing import Callable
+
+def _apply_free_bc(W: np.ndarray, nu: float) -> np.ndarray:
+
+    W[0, 1:-1] = (2.0*W[1, 1:-1] - W[2, 1:-1]
+                  - nu*(W[1, 2:] - 2.0*W[1, 1:-1] + W[1, :-2]))
+    # Right ghost (row -1), edge is row -2, next interior is row -3
+    W[-1, 1:-1] = (2.0*W[-2, 1:-1] - W[-3, 1:-1]
+                   - nu*(W[-2, 2:] - 2.0*W[-2, 1:-1] + W[-2, :-2]))
+    # Bottom ghost (col 0)
+    W[1:-1, 0] = (2.0*W[1:-1, 1] - W[1:-1, 2]
+                  - nu*(W[2:, 1] - 2.0*W[1:-1, 1] + W[:-2, 1]))
+    # Top ghost (col -1)
+    W[1:-1, -1] = (2.0*W[1:-1, -2] - W[1:-1, -3]
+                   - nu*(W[2:, -2] - 2.0*W[1:-1, -2] + W[:-2, -2]))
+    # Corner condition
+    W[0,  0]  = W[2,  0]  + W[0,  2]  - W[2,  2]
+    W[-1, 0]  = W[-3, 0]  + W[-1, 2]  - W[-3, 2]
+    W[0,  -1] = W[2,  -1] + W[0,  -3] - W[2,  -3]
+    W[-1, -1] = W[-3, -1] + W[-1, -3] - W[-3, -3]
+
+    return W
+
+def _laplacian_padded(W: np.ndarray, h: float) -> np.ndarray:
+    return (
+        W[:-2, 1:-1] + W[2:, 1:-1]
+        + W[1:-1, :-2] + W[1:-1, 2:]
+        - 4.0 * W[1:-1, 1:-1]
+    ) / h ** 2
+
+def _biharmonic(w_phys: np.ndarray, h: float, nu: float) -> np.ndarray:
+    N = w_phys.shape[0] - 1
+
+    W = np.zeros((N + 3, N + 3))
+    W[1:-1, 1:-1] = w_phys
+    W = _apply_free_bc(W, nu)
+
+    lap1 = _laplacian_padded(W, h)
+
+    L = np.zeros((N + 3, N + 3))
+    L[1:-1, 1:-1] = lap1
+    L = _apply_free_bc(L, nu)
+
+    return _laplacian_padded(L, h)
+
+
+def _laplacian_phys(w_phys: np.ndarray, h: float, nu: float) -> np.ndarray:
+    N = w_phys.shape[0] - 1
+    W = np.zeros((N + 3, N + 3))
+    W[1:-1, 1:-1] = w_phys
+    W = _apply_free_bc(W, nu)
+    return _laplacian_padded(W, h)
+
+
+def _Kh(w: np.ndarray, h: float, nu: float,
+        K0: float, T: float, D: float) -> np.ndarray:
+    out = K0 * w
+    if T != 0.0:
+        out = out - T * _laplacian_phys(w, h, nu)
+    if D != 0.0:
+        out = out + D * _biharmonic(w, h, nu)
+    return out
+
+
+def _Bh(w: np.ndarray, h: float, nu: float,
+        K1: float, T1: float) -> np.ndarray:
+    out = K1 * w
+    if T1 != 0.0:
+        out = out - T1 * _laplacian_phys(w, h, nu)
+    return out
+
+
+def _build_system_matrix(
+    N: int, h: float, nu: float,
+    rho_h: float, K0: float, T: float, D: float,
+    K1: float, T1: float,
+    beta: float, gamma: float, dt: float,
+) -> object:
+
+    n_pts = (N + 1) ** 2
+
+    cols, rows, vals = [], [], []
+    e = np.zeros((N + 1, N + 1))
+
+    for col_idx in range(n_pts):
+        i, j = divmod(col_idx, N + 1)
+        e[i, j] = 1.0
+
+        col_vec = (
+            rho_h * e
+            + beta * dt ** 2 * _Kh(e, h, nu, K0, T, D)
+            + gamma * dt     * _Bh(e, h, nu, K1, T1)
+        )
+
+        nz = np.flatnonzero(col_vec)
+        for row_idx in nz:
+            rows.append(row_idx)
+            cols.append(col_idx)
+            vals.append(col_vec.flat[row_idx])
+
+        e[i, j] = 0.0
+
+    M = sparse.csc_matrix((vals, (rows, cols)), shape=(n_pts, n_pts))
+    return M
+
+
+def solve_kirchhoff_love(
+    force_fn: Callable[[np.ndarray, np.ndarray, float], np.ndarray],
+    L: float = 0.24,
+    N: int = 80,
+    T: float = 1.0,
+    rho_h: float = 2.7,
+    E: float = 69e9,
+    h_plate: float = 0.001,
+    nu: float = 0.33,
+    K0: float = 0.0,
+    T_tension: float = 0.0,
+    K1: float = 0.0,
+    T1: float = 0.0,
+    dt: float | None = None,
+    save_path: str | None = None,
+):
+    D = E * h_plate ** 3 / (12.0 * (1.0 - nu ** 2))
+    h = L / N
+    if dt is None:
+        dt = 1 * h / 2.0
+
+    beta_nb  = 0.25
+    gamma_nb = 0.50
+
+    x = np.linspace(0.0, L, N + 1)
+    y = np.linspace(0.0, L, N + 1)
+    X, Y = np.meshgrid(x, y, indexing="ij")
+
+    n_pts = (N + 1) ** 2
+
+    w = np.zeros((N + 1, N + 1))   # displacement
+    v = np.zeros((N + 1, N + 1))   # velocity
+
+    F0 = force_fn(X, Y, 0.0)
+    a  = (F0 - _Kh(w, h, nu, K0, T_tension, D)
+              - _Bh(v, h, nu, K1, T1)) / rho_h
+
+    print("Building and factorising system matrix ", end="", flush=True)
+    M_sys = _build_system_matrix(
+        N, h, nu, rho_h, K0, T_tension, D, K1, T1,
+        beta_nb, gamma_nb, dt
+    )
+    lu = splu(M_sys)
+    print("done.")
+
+    total_steps = max(1, int(round(T / dt)))
+    t_current   = 0.0
+
+    ts = []
+    ws = []
+    for step in range(total_steps):
+        t_new = t_current + dt
+
+        # Stage 1: predictor
+        w_p = w + dt * v + 0.5 * dt ** 2 * (1.0 - 2.0 * beta_nb) * a
+        v_p = v + dt * (1.0 - gamma_nb) * a
+
+        # Stage 2: solve for a_new
+        F_new = force_fn(X, Y, t_new)
+        rhs   = F_new - _Kh(w_p, h, nu, K0, T_tension, D) \
+                      - _Bh(v_p, h, nu, K1, T1)
+
+        a_new_flat = lu.solve(rhs.ravel())
+        a_new = a_new_flat.reshape(N + 1, N + 1)
+
+        # Stage 3: corrector
+        w = w_p + beta_nb  * dt ** 2 * a_new
+        v = v_p + gamma_nb * dt      * a_new
+        a = a_new
+
+        t_current = t_new
+
+        if (step + 1) % max(1, total_steps // 10) == 0:
+            pct = 100 * (step + 1) / total_steps
+            print(f"  {pct:.0f}% complete (t = {t_current:.4f} s)")
+            ts.append(t_current)
+            ws.append(w)
+    ts.append(t_current)
+    ws.append(w)
+    return ts,ws
+\end{lstlisting}

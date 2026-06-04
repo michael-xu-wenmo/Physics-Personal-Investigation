@@ -15,14 +15,14 @@ def superposition(freqs, patterns):
     for paired in exist.keys():
         if len(exist[paired]) < 2:
             continue
-        sfreq.append(paired)
-        superposed.append(patterns[exist[paired][0]] + patterns[exist[paired][0]].T)
-
-        sfreq.append(paired)
-        superposed.append(
-            np.rot90(patterns[exist[paired][1]] + patterns[exist[paired][1]].T)
-        )
-
+#        sfreq.append(paired)
+#        superposed.append(patterns[exist[paired][0]] + patterns[exist[paired][0]].T)
+#
+#        sfreq.append(paired)
+#        superposed.append(
+#            np.rot90(patterns[exist[paired][1]] + patterns[exist[paired][1]].T)
+#        )
+#
         sfreq.append(paired)
         superposed.append(
             patterns[exist[paired][0]]

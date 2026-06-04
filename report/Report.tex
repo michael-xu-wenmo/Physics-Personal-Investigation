@@ -4,6 +4,38 @@
 \usepackage{tabularx}
 \usepackage{float}
 \usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codebg}{RGB}{246,248,250}
+\definecolor{codegreen}{RGB}{34,139,34}
+\definecolor{codeblue}{RGB}{0,92,197}
+\definecolor{codegray}{RGB}{106,115,125}
+
+\lstdefinestyle{pythonstyle}{
+    language=Python,
+    backgroundcolor=\color{codebg},
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{codeblue}\bfseries,
+    stringstyle=\color{codegreen},
+    commentstyle=\itshape\color{codegray},
+    numberstyle=\tiny\color{codegray},
+    numbers=left,
+    numbersep=10pt,
+    breaklines=true,
+    showstringspaces=false,
+    keepspaces=true,
+    tabsize=4,
+    frame=none,
+    frame=single,
+    rulecolor=\color{codegray},
+    framerule=0.3pt,
+}
+\lstset{style=pythonstyle}
 
 \usepackage{graphicx}
 \graphicspath{{images/}}
@@ -23,7 +55,7 @@
 \abstract
 \noindent\rule{\linewidth}{0.4pt}
 
-This investigation aims to use computer programs to predict the Chladni setup for a square metal plate. The plate is vibrated from the middle using a vibration generator. Standing wave patterns on the plate are observed for multiple frequencies. Three different equations are attempted to govern the motion of the standing waves and different numerical methods are implemented in Python to solve for the wave. This includes the eigenvalue method for the free wave, leapfrog method for the forced wave, and the Newmark-Beta scheme for the forced gerneralised Kirchhoff-Love plate equation. Non of these can produce patterns which look identical to the experiment, due random environmental factors. However, the Plate equation predicted the patterns in certain modes with a respectable accuracy. Further improvements of the algorithm with better hardwares can be done for more accurate results.
+This investigation aims to use computer programs to predict the Chladni setup for a square metal plate. The plate is vibrated from the middle using a vibration generator. Standing wave patterns on the plate are observed for multiple frequencies. Three different equations are attempted to govern the motion of the standing waves and different numerical methods are implemented in Python to solve for the wave. This includes the eigenvalue method for the free wave, leapfrog method for the forced wave, and the Newmark-Beta scheme for the forced generalised Kirchhoff-Love plate equation. None of these can produce patterns which look identical to the experiment, due random environmental factors. However, the Plate equation predicted the patterns in certain modes with a respectable accuracy. Further improvements of the algorithm with better hardwares can be done for more accurate results.
 
 \noindent\rule{\linewidth}{0.4pt}
 
@@ -33,11 +65,17 @@ This investigation aims to use computer programs to predict the Chladni setup fo
     \input{sections/theory/forced_wave}
     \input{sections/theory/plate_eq}
     \input{sections/methodology}
-    \input{sections/results} % incomplete 
-    \input{sections/conclusion} % incomplete
+    \input{sections/results}
+    \input{sections/conclusion}
 \end{multicols}
 
-\clearpage
 \printbibliography
+\clearpage
+\appendix
+\renewcommand{\thesection}{Appendix \Alph{section}}
+\include{sections/appendix/patterns}
+\include{sections/appendix/wave}
+\include{sections/appendix/forced}
+\include{sections/appendix/plate}
 
 \end{document}

@@ -59,16 +59,17 @@ def forcedwaves2D(
 
         # Centre point with external forcing
         lap_centre = (
-            Uo[kk - 1, kk]
-            + Uo[kk + 1, kk]
-            + Uo[kk, kk - 1]
-            + Uo[kk, kk + 1]
-            - 4.0 * Uo[kk, kk]
+                Uo[kk - 3:kk+2, kk-2:kk+3]
+                + Uo[kk-1:kk+4, kk-2:kk+3]
+                + Uo[kk-2:kk+3, kk-3:kk+2]
+                + Uo[kk-2:kk+3, kk-1:kk+4]
+                - 4.0 * Uo[kk-2:kk+3, kk-2:kk+3]
         ) / h**2
 
         t_current = dt * (t_step - 1)
-        U[kk, kk] = (
-            (lap_centre + force_fn(t_current)) * dt**2 - Uoo[kk, kk] + 2.0 * Uo[kk, kk]
+
+        U[kk-2:kk+3, kk-2:kk+3] = (
+                (lap_centre + force_fn(t_current)) * dt**2 - Uoo[kk-2:kk+3, kk-2:kk+3] + 2.0 * Uo[kk-2:kk+3, kk-2:kk+3]
         )
 
         # Progress in Time
@@ -88,7 +89,7 @@ if __name__ == "__main__":
 
     N = 100
     T = 100
-    w = np.pi * np.sqrt(1**2 + 2**2)
+    w = np.pi * np.sqrt(1**2 + 4**2)
     alpha = 5.0
 
     U = forcedwaves2D(

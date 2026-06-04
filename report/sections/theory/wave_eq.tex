@@ -10,7 +10,7 @@ The first algorithm treats the metal plate as a thin membrane. It has negligible
 
 The symbol u is a function of t, time, and x,y which are Cartesian coordinates. It represents the vertical displacement of the wave at the given position and time. The $\nabla^2$ symbol is the 2D laplacian operator. The quantity $c$ is the wave speed.
 
-When the wave is a standing wave on the plate, we can assume that the time and space sections of u is separable, $u(x,y,t) = F(x,y)T(t)$, with the time dependent part $T(t) = cos(\omega t)$. Also for convenience, x,y, and t will be casted in dimensionless form. Time t will be multiplied by $\frac{L}{c}$. $x$ and $y$ will all be divided by $L$, and u represents a fraction of its amplitude. All of the quantities in the paper will be expressed in this dimensionless form later on.
+When the wave is a standing wave on the plate, we can assume that the time and space sections of u is separable, $u(x,y,t) = F(x,y)T(t)$, with the time dependent part $T(t) = cos(\omega t)$. For convenience, x,y, and t will be casted in dimensionless form. Time t will be multiplied by $\frac{L}{c}$. $x$ and $y$ will all be divided by $L$, and u represents a fraction of its amplitude. These three quantities will be expressed in this dimensionless form later on.
 
 In this way, the wave equation can be rewritten into the time independent form:
 
@@ -18,9 +18,9 @@ In this way, the wave equation can be rewritten into the time independent form:
     \nabla^2 u = -k^2 u
 \end{equation}
 
-This is essentially a differential equation and one is trying to find the eigenfunctions of the laplacian operator. One can obtain $\omega$ by multiplying $k$ with $\frac{c}{L}$.
+This is essentially a partial differential equation (PDE) and one is trying to find the eigenfunctions of the laplacian operator. One can obtain $\omega$ by multiplying $k$ with $\frac{c}{L}$.
 
-An important detail for this PDE is it's boundary conditions. Normally when solving this type of wave equations for a vibrating string, or the Schrodinger's Wave Equation, a Dirichlet boundary condition is assumed. This means that $u = 0$ when $x = 0$ or $x = 1$. This corresponds to the case where the wave must disappear at the edges, i.e. clamped strings or infinite potential. However, for a vibrating plate, the edges are allowed to vibrate freely, often vibrating at a maximum or minimum. Therefore, instead of $u(0) = 0$, it is $\frac{du}{dx}_{x=0} = 0$ (Also the same for x = 1). This is called as the Neumann boundary condition. Both boundary conditions are tested in the practical for the this investigation
+An important detail for this PDE is it's boundary conditions. Normally when solving this type of equation for a vibrating string (or even the Schrodinger's Wave Equation) a Dirichlet boundary condition is assumed. This means that $u = 0$ when $x = 0$ or $x = 1$ (Same for $y$). This means that the wave must disappear at the edges, i.e. clamped strings or infinite potential. However, for a vibrating plate, the edges are allowed to vibrate freely, often vibrating at a maximum or minimum. Therefore, instead of $u(0) = 0$, it is $\frac{du}{dx}_{x=0} = 0$ (Also the same for x = 1 and for y).
 
 Therefore, using this boundary condition, the general solution of this PDE is this:
 
@@ -28,12 +28,12 @@ Therefore, using this boundary condition, the general solution of this PDE is th
     u(x,y,t) = U_0 cos(\omega_{ms}t)cos(m\pi x)cos(s\pi y)
 \end{equation}
 
-$U_0$ is the initial displacement (i.e amplitude) of the wave. $m$ and $s$ are the indices for the different modes. $\omega_{ms}$ is the angular frequency of the wave and is related to $m$ and $s$ via this relationship: $\omega_{ms} = \sqrt{m^2+s^2}$. Note that a value of $\omega$ can correspond to multiple combinations of $m$ and $s$. This means that in the practical, the overall pattern displayed is going to be a superposition of the different modes.
+Where $U_0$ is the initial displacement (i.e amplitude) of the wave. $m$ and $s$ are the indices for the different modes. $\omega_{ms}$ is the angular frequency of the wave and is determined by $m$ and $s$ via this relationship: $\omega_{ms} = \sqrt{m^2+s^2}$. Note that a value of $\omega$ can correspond to multiple combinations of $m$ and $s$. This means that in the practical, the overall pattern displayed is going to be a superposition of the different degenerate modes.
 
-Another important feature of this solution is that each mode is orthogonal to each other. This is key thing to remember when dealing with the discretised version of the laplacian, especially when considering the boundary conditions.
+Another important feature of this solution is that each mode is orthogonal to each other. This is a key thing to remember when dealing with the discretised version of the laplacian, especially when considering the boundary conditions.
 
 \subsection{Numerically Solving the Wave Equation}
-Analytical solutions may be convenient for certain situations, however, not any shape has an analytical solution. Sometimes, numerical methods are required. The finite differences method (FDM) can be used to solve this PDE numerically. Dividing the region by N, $dx$ can be turned into $\Delta x$, with $N\Delta x = 1$. This means that the function $u(x)$ is also discretised into $u_i$ where i is an integer ranges from 0 to N. Only one dimension is considered in this situation as it simplifies things a lot. The method to raise this to 2D will be shown later.
+Analytical solutions may be convenient for certain situations, however, not any shape has an analytical solution. Sometimes, numerical methods are required. The finite differences method (FDM) can be used to solve this PDE numerically. Dividing the region by N, $dx$ can be turned into $\Delta x$, with $N\Delta x = 1$. This means that the function $u(x)$ is discretised into $u_i$ where i is an integer ranges from 0 to N. Only one dimension is considered in this situation as it simplifies things a lot. The method to raise this to 2D will be shown later.
 
 \subsubsection{Dirichlet Boundary Condition}
 Using the central difference approach, the second derivative of a point $u_i$ can be thought as the rate of change between the derivative of the imaginary point $u_{i+0.5}$ and the imaginary point $u_{i-0.5}$.
@@ -119,7 +119,7 @@ This implies that $u_1 = u_{-1}$ and $u_{N} = u_{N+1}$. By applying this to \eqr
     \frac{u_{N+1}-2u_{N}+u_{N-1}}{\Delta x^2} = \frac{-2u_{N}+2u_{N-1}}{\Delta x^2}= -\omega^2 u_0
 \end{equation}
 
-The change to the original matrix equation is that the first row is $\begin{pmatrix}-2&2&0&\cdots&0\end{pmatrix}$ and the last row is $\begin{pmatrix}0&\cdots&0&2&-2\end{pmatrix}$. The matrix also changes from $N-1$ by $N-1$ to $N+1$ by $N+1$. The full matrix equation is shown bellow:
+The change to the original matrix equation is that the first row is $\begin{pmatrix}-2&2&0&\cdots&0\end{pmatrix}$ and the last row is $\begin{pmatrix}0&\cdots&0&2&-2\end{pmatrix}$. The matrix also changes from $(N-1)\times(N-1)$ to $(N+1)\times(N+1)$. The full matrix equation is shown bellow:
 
 \begin{equation}
 \begin{pmatrix}
@@ -133,7 +133,7 @@ The change to the original matrix equation is that the first row is $\begin{pmat
 \mathbf{u} = -\Delta x^2 \omega^2 \mathbf{u}
 \end{equation}
 
-Notice that the vector $\mathbf{u}$ now starts with $u_0$ and ends with $u_N$. There is a problem for this matrix though. The Laplacian operator is a Hermitian operator which gives it the feature of orthogonal eigenfunctions. The corresponding matrix must also be a Hermitian matrix. This means that the complex conjugate of the transverse of the matrix must be the same as the original matrix. As the matrix shown above is real, this means that the discrete laplacian must have a reflectional symmetry through its main diagonal. The matrix shown above is clearly asymmetrical through the main diagonal. This is not a huge problem mathematically but does put a lot of computational pressure on the computer when it is trying to solve for the eigenvalues and eigenvectors.
+Notice that the vector $\mathbf{u}$ now starts with $u_0$ and ends with $u_N$. There is a problem for this matrix though. The Laplacian operator is a Hermitian operator \autocite{axler2015linear} which gives it the feature of orthogonal eigenfunctions. The corresponding matrix must also be a Hermitian matrix\autocite{horn2013matrix}. This means that the complex conjugate of the transverse of the matrix must be the same as the original matrix. As the matrix shown above is real, this means that the discrete laplacian must have a reflectional symmetry through its main diagonal. The matrix shown above is clearly asymmetrical through the main diagonal. This is not a huge problem mathematically but does put a lot of computational pressure on the computer when it is trying to solve for the eigenvalues and eigenvectors.
 
 To avoid this problem, forward/backward differences can be used instead of central differences method when calculating the second derivatives for the boundaries. Hence, instead of applying the equation shown in \eqref{eq:centraldiff}, one should use this for the left boundary (forward difference): 
 
@@ -179,7 +179,7 @@ The expanded form of the 2D laplacian is shown:
     \nabla^2 u = \frac{\partial u}{\partial x} + \frac{\partial u}{\partial y}
 \end{equation}
 
-By imagining a L by L space and dividing the space into a N by N mesh, each discrete point on the mesh can be represented by this notation $u_{i,j}$ where $i$ and $j$ both ranges from 0 to N. As the space is divided into a square mesh, a quantity $\Delta h$ can be defined so that $\Delta h = \Delta x = \Delta y$. Therefore, using the equations derived previously, the 2 dimensional second derivative can be expressed as following:
+By imagining a L by L space and dividing the space into a N by N mesh, each discrete point on the mesh can be represented by this notation $u_{i,j}$ where $i$ and $j$ both ranges from 0 to N. As the space is divided into a square mesh, a quantity $\Delta h$ can be defined so that $\Delta h = \Delta x = \Delta y$. Therefore, using the equations derived previously, the 2 dimensional second derivative can be expressed as following (a classic 5 point stencil):
 
 \begin{equation}
     \frac{u_{i,j+1}+u_{i+1,j}-4u_{i,j}+u_{i-1,j}+u_{i,j-1}}{\Delta h^2} = -\omega^2 u_{i,j}
@@ -254,7 +254,7 @@ The 2 dimensional discrete Neumann Laplacian has a similar equation but with $\m
 \end{pmatrix}
 \end{equation}
 
-$M$ is now a $(N+1)^2 \times (N+1)^2$ tridiagonal matrix that looks like this
+$M$ is now a $(N+1)^2 \times (N+1)^2$ tridiagonal matrix that looks like this\autocite{square_plate}
 
 \begin{equation}
     M =
